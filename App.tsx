@@ -10,30 +10,26 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import { useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { RootStackParamList } from '@/types/navigation';
-import Landing from './src/pages/Landing';
-import Home from './src/pages/Home';
+import { ThemeProvider } from 'styled-components/native';
+import { theme } from '@/styles/theme';
+import Landing from './src/components/pages/Landing';
+import Home from './src/components/pages/Home';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Landing">
+          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 
